@@ -1,61 +1,30 @@
-package com.example.smsapp;
+# Details Form App
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.telephony.SmsManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+This is a simple Android application that uses **Layout Managers** (RelativeLayout, LinearLayout, GridLayout) and **Event Listeners** to create a basic form.
 
-public class MainActivity extends AppCompatActivity {
+## Features
+- Input fields for **Name**, **Registration Number**, and **Department**.
+- Spinner to select a department.
+- Submit button that displays entered information using a **Toast** message.
+- Clean UI using multiple layout managers.
 
-    private static final int SMS_PERMISSION_REQUEST = 101;
-    EditText etPhoneNumber, etMessage;
-    Button btnSendSms;
+## Built With
+- Java
+- Android Studio
+- XML Layouts
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+## How to Run
+1. Clone the repository or download the ZIP.
+2. Open the project in **Android Studio**.
+3. Connect a physical device or start an Android Emulator.
+4. Press the **Run** button.
 
-        etPhoneNumber = findViewById(R.id.etPhoneNumber);
-        etMessage = findViewById(R.id.etMessage);
-        btnSendSms = findViewById(R.id.btnSendSms);
+## Screenshots
+*(You can add your app screenshots here)*
 
-        btnSendSms.setOnClickListener(v -> sendSms());
-    }
+## Author
+- [Your Name]
 
-    private void sendSms() {
-        String phone = etPhoneNumber.getText().toString().trim();
-        String msg = etMessage.getText().toString().trim();
-
-        if (phone.isEmpty() || msg.isEmpty()) {
-            Toast.makeText(this, "Enter phone number and message", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-            SmsManager.getDefault().sendTextMessage(phone, null, msg, null, null);
-            Toast.makeText(this, "SMS Sent!", Toast.LENGTH_SHORT).show();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_REQUEST);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == SMS_PERMISSION_REQUEST && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            sendSms();
-        } else {
-            Toast.makeText(this, "SMS permission denied", Toast.LENGTH_SHORT).show();
-        }
-    }
-}
+---
+Feel free to contribute, open issues, and suggest improvements!
 
